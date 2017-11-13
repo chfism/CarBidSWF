@@ -88,7 +88,9 @@ package view
          var _loc1_:String = RightContainerView(Game.Content.getView(RightContainerView)).requestid;
          var _loc2_:Auction = Auction(Game.Content.getModel(Auction));
          var _loc3_:String = "http://" + _loc2_.webserverstr + "/bid/query.ashx?bidnumber=" + _loc2_.uid + "&requestid=" + _loc1_;
-         this.logappliction.WriteLogWithURL("投标板块","100%后7秒后请求出价情况",_loc3_);
+         //http://paimai2.alltobid.com:80/bid/query.ashx?bidnumber=80658434&requestid=80658434.e201710231400
+       //返回内容 {"response":{"responsecode":5000,"responsemsg":"投标卡不存在","data":null},"requestid":null,"servertime":"20171023134212"}
+      this.logappliction.WriteLogWithURL("投标板块","100%后7秒后请求出价情况",_loc3_);
          var _loc4_:URLRequest = new URLRequest(_loc3_);
          _loc4_.method = URLRequestMethod.GET;
          _loc4_.contentType = "application/json";

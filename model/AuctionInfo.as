@@ -152,10 +152,10 @@ package model
          return _loc7_;
       }
       
-      public function §̓§() : *
+      public function GetImageCode() : *
       {
          this.GetCurrentTime();
-         var _loc1_:String = this.uid + "." + this.currenttime;
+         var _loc1_:String = this.uid + "." + this.currenttime; //80658434.20171023140000
          var _loc2_:String = md5.core_md5(_loc1_ + this.currenttime + this.version).toLowerCase();
          var _loc3_:* = "{requestid:\"" + _loc1_ + "\",timestamp:\"" + this.currenttime + "\",bidnumber:\"" + this.uid + "\",checkcode:\"" + _loc2_ + "\",version:\"" + this.version + "\"}";
          var _loc4_:String = _loc3_;

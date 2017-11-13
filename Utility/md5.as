@@ -1,5 +1,6 @@
 package Utility
 {
+	//http://bbs.blueidea.com/thread-2770961-1-1.html
    import flash.utils.ByteArray;
    
    public class md5

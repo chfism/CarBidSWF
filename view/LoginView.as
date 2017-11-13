@@ -17,7 +17,7 @@ package view
    import Controller.StageControl;
    import zebra.loaders.IAssetLoader;
    
-   public class ɣ extends querylatestbid
+   public class LoginView extends querylatestbid
    {
        
       
@@ -29,7 +29,7 @@ package view
       
       private var Բ:EncodeAndDecode;
       
-      public function ɣ()
+      public function LoginView()
       {
          this.logappliction = new LogApplication();
          this.Բ = new EncodeAndDecode(Main.keystr);
@@ -68,12 +68,13 @@ package view
          }
          else
          {
+        	 //webserver=paimai2.alltobid.com:80
             _auction = Auction(Game.Content.getModel(Auction));
             uri = "http://" + _auction.webserverstr + "/webwcf/BidCmd.svc/WebCmd?p=" + Math.random();
             loader = new URLLoader();
             request = new URLRequest(uri);
             request.method = URLRequestMethod.POST;
-            request.data = AuctionInfo(Game.Content.getModel(AuctionInfo)).§̓§();
+            request.data = AuctionInfo(Game.Content.getModel(AuctionInfo)).GetImageCode();
             request.contentType = "application/json";
             loader.addEventListener(Event.COMPLETE,function getHttpContentHandler(param1:Event):void
             {

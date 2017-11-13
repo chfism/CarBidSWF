@@ -190,11 +190,11 @@ package view
       
       public function ύ(param1:MouseEvent) : void
       {
-         var _loc2_:ɣ = null;
+         var _loc2_:LoginView = null;
          if(this.ψ)
          {
             setTimeout(this.ώ,1000 * 6);
-            _loc2_ = new ɣ();
+            _loc2_ = new LoginView();
             Container.DisplayCurrentObject(_loc2_);
             this.ψ = false;
          }
