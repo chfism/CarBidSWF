@@ -37,7 +37,7 @@ package task
             bidstage = BidStageView(Game.Content.getView(BidStageView)).bidstagePart;
             bidstageview = BidStageView(Game.Content.getView(BidStageView));
             Reader3to1Timer = getTimer();
-            trace("公开信息超过10秒钟未更新");
+            //trace("公开信息超过10秒钟未更新");
             bidinfo.setLightState(1);
             if(!Main.isReconnectBy31)
             {

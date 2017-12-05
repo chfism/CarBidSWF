@@ -80,7 +80,20 @@ package model
          _loc1_.toStr(_loc3_);
          return _loc1_;
       }
-      
+      /*
+      public function get bytes0_0():ByteArrayCollection
+      {
+          this.createTimestamp();
+          var timespan1:String = "0";
+          this.checkcode = MD5.startMd((((((this.bidnumber + this.clientId) + this.requestid) + timespan1) + this.timestamp) + this.version));
+          var _byteArray3:ByteArrayCollection = new ByteArrayCollection();
+          var _dataString0_0:String = (((((((((((('{requestid:"' + this.requestid) + '",timestamp:"') + this.timestamp) + '",bidnumber:"') + this.uid) + '",checkcode:"') + this.checkcode) + '",version:"') + this.version) + '",request:{timespan:"') + timespan1) + '"}}');
+          var content0_0:String = this.xxtea.XxteaEncode(_dataString0_0);
+          var testxxtea1:String = this.xxtea.XxteaDecode(content0_0);
+          _byteArray3.toStr(content0_0);
+          return (_byteArray3);
+      }
+      */
       public function bytes2_1(param1:String) : ByteArrayCollection
       {
          this.createTimestamp();
