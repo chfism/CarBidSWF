@@ -1,7 +1,7 @@
 package fl.managers
 {
    import flash.display.DisplayObject;
-   import flash.display.DisplayObjectContainer;
+   import flash.display.DisplayObjectBidInitView;
    import flash.display.InteractiveObject;
    import flash.display.SimpleButton;
    import flash.display.Stage;
@@ -14,13 +14,13 @@ package fl.managers
    import flash.ui.Keyboard;
    import flash.utils.Dictionary;
    import fl.core.UIComponent;
-   import Controls.textboxcontrol;
+   import fl.controls.Button;
    
    public class FocusManager implements IFocusManager
    {
        
       
-      private var _form:DisplayObjectContainer;
+      private var _form:DisplayObjectBidInitView;
       
       private var §՘§:Dictionary;
       
@@ -36,13 +36,13 @@ package fl.managers
       
       private var §՞§:String;
       
-      private var §՟§:textboxcontrol;
+      private var §՟§:Button;
       
-      private var §ՠ§:textboxcontrol;
+      private var §ՠ§:Button;
       
-      private var ա:Boolean = true;
+      private var _uniqueid:Boolean = true;
       
-      public function FocusManager(param1:DisplayObjectContainer)
+      public function FocusManager(param1:DisplayObjectBidInitView)
       {
          super();
          this.§՘§ = new Dictionary(true);
@@ -58,7 +58,7 @@ package fl.managers
          var _loc2_:DisplayObject = DisplayObject(param1.target);
          if(_loc2_["@doswf__stage"])
          {
-            this.բ(DisplayObject(param1.target));
+            this.xxteaHttp(DisplayObject(param1.target));
          }
       }
       
@@ -91,15 +91,15 @@ package fl.managers
             }
             _loc3_.addEventListener(Event.TAB_ENABLED_CHANGE,this.է,false,0,true);
          }
-         this.գ(_loc3_);
+         this.loadimage(_loc3_);
       }
       
-      private function բ(param1:DisplayObject, param2:Boolean = false) : void
+      private function xxteaHttp(param1:DisplayObject, param2:Boolean = false) : void
       {
          var ݿ:IFocusManagerComponent = null;
          var ހ:InteractiveObject = null;
-         var ށ:DisplayObjectContainer = null;
-         var ނ:DisplayObjectContainer = null;
+         var ށ:DisplayObjectBidInitView = null;
+         var ނ:DisplayObjectBidInitView = null;
          var i:int = 0;
          var child:DisplayObject = null;
          var o:DisplayObject = param1;
@@ -132,9 +132,9 @@ package fl.managers
                ހ.addEventListener(Event.TAB_INDEX_CHANGE,this.ը,false,0,true);
             }
          }
-         if(o is DisplayObjectContainer)
+         if(o is DisplayObjectBidInitView)
          {
-            ށ = DisplayObjectContainer(o);
+            ށ = DisplayObjectBidInitView(o);
             o.addEventListener(Event.TAB_CHILDREN_CHANGE,this.թ,false,0,true);
             ނ = null;
             try
@@ -155,7 +155,7 @@ package fl.managers
                      child = ށ.getChildAt(i);
                      if(child != null)
                      {
-                        this.բ(ށ.getChildAt(i));
+                        this.xxteaHttp(ށ.getChildAt(i));
                      }
                   }
                   catch(error:SecurityError)
@@ -167,18 +167,18 @@ package fl.managers
          }
       }
       
-      private function գ(param1:DisplayObject) : void
+      private function loadimage(param1:DisplayObject) : void
       {
          var _loc2_:* = null;
          var _loc3_:DisplayObject = null;
-         if(param1 is DisplayObjectContainer)
+         if(param1 is DisplayObjectBidInitView)
          {
             param1.removeEventListener(Event.TAB_CHILDREN_CHANGE,this.թ,false);
             param1.removeEventListener(Event.TAB_INDEX_CHANGE,this.ը,false);
             for(_loc2_ in this.§՘§)
             {
                _loc3_ = DisplayObject(_loc2_);
-               if(DisplayObjectContainer(param1).contains(_loc3_))
+               if(DisplayObjectBidInitView(param1).contains(_loc3_))
                {
                   if(_loc3_ == this.§՜§)
                   {
@@ -194,7 +194,7 @@ package fl.managers
       
       private function դ(param1:DisplayObject) : Boolean
       {
-         var _loc2_:DisplayObjectContainer = null;
+         var _loc2_:DisplayObjectBidInitView = null;
          try
          {
             _loc2_ = param1.parent;
@@ -213,10 +213,10 @@ package fl.managers
          return true;
       }
       
-      private function ե(param1:DisplayObject, param2:String) : Boolean
+      private function showSelfTopPriceWindow(param1:DisplayObject, param2:String) : Boolean
       {
          var _loc3_:IFocusManagerGroup = null;
-         if(!this.զ(param1))
+         if(!this.sendAndGetPriceInfo(param1))
          {
             return false;
          }
@@ -231,9 +231,9 @@ package fl.managers
          return true;
       }
       
-      private function զ(param1:DisplayObject) : Boolean
+      private function sendAndGetPriceInfo(param1:DisplayObject) : Boolean
       {
-         var _loc2_:DisplayObjectContainer = null;
+         var _loc2_:DisplayObjectBidInitView = null;
          var _loc3_:TextField = null;
          var _loc4_:SimpleButton = null;
          try
@@ -311,14 +311,14 @@ package fl.managers
             return;
          }
          this.§՛§ = true;
-         var _loc2_:DisplayObjectContainer = DisplayObjectContainer(param1.target);
+         var _loc2_:DisplayObjectBidInitView = DisplayObjectBidInitView(param1.target);
          if(_loc2_.tabChildren)
          {
-            this.բ(_loc2_,true);
+            this.xxteaHttp(_loc2_,true);
          }
          else
          {
-            this.գ(_loc2_);
+            this.loadimage(_loc2_);
          }
       }
       
@@ -328,7 +328,7 @@ package fl.managers
          {
             return;
          }
-         this.բ(this.form);
+         this.xxteaHttp(this.form);
          this.form.addEventListener(Event.ADDED,this.addedHandler,false,0,true);
          this.form.addEventListener(Event.REMOVED,this.removedHandler,false,0,true);
          try
@@ -391,7 +391,7 @@ package fl.managers
       
       private function focusInHandler(param1:FocusEvent) : void
       {
-         var _loc3_:textboxcontrol = null;
+         var _loc3_:Button = null;
          if(!this.activated)
          {
             return;
@@ -400,9 +400,9 @@ package fl.managers
          if(this.form.contains(_loc2_))
          {
             this.§՜§ = this.Ք(InteractiveObject(_loc2_));
-            if(this.§՜§ is textboxcontrol)
+            if(this.§՜§ is Button)
             {
-               _loc3_ = textboxcontrol(this.§՜§);
+               _loc3_ = Button(this.§՜§);
                if(this.§՟§)
                {
                   this.§՟§.ҁ = false;
@@ -529,14 +529,14 @@ package fl.managers
          this.§՞§ = "MOUSEDOWN";
       }
       
-      public function get Վ() : textboxcontrol
+      public function get Վ() : Button
       {
          return this.§ՠ§;
       }
       
-      public function set Վ(param1:textboxcontrol) : void
+      public function set Վ(param1:Button) : void
       {
-         var _loc2_:textboxcontrol = !!param1?textboxcontrol(param1):null;
+         var _loc2_:Button = !!param1?Button(param1):null;
          if(_loc2_ != this.§ՠ§)
          {
             if(this.§ՠ§)
@@ -673,7 +673,7 @@ package fl.managers
                   break;
                }
             }
-            if(this.ե(this.ՙ[param1],param4))
+            if(this.showSelfTopPriceWindow(this.ՙ[param1],param4))
             {
                _loc7_ = DisplayObject(this.Ք(this.ՙ[param1]));
                if(_loc7_ is IFocusManagerGroup)
@@ -782,7 +782,7 @@ package fl.managers
          continue loop1;
       }
       
-      private function getChildIndex(param1:DisplayObjectContainer, param2:DisplayObject) : int
+      private function getChildIndex(param1:DisplayObjectBidInitView, param2:DisplayObject) : int
       {
          return param1.getChildIndex(param2);
       }
@@ -794,12 +794,12 @@ package fl.managers
       
       public function get Տ() : Boolean
       {
-         return this.ա;
+         return this._uniqueid;
       }
       
       public function set Տ(param1:Boolean) : void
       {
-         this.ա = param1;
+         this._uniqueid = param1;
       }
       
       public function get Ր() : int
@@ -817,17 +817,17 @@ package fl.managers
          this.§՝§ = param1;
       }
       
-      public function get form() : DisplayObjectContainer
+      public function get form() : DisplayObjectBidInitView
       {
          return this._form;
       }
       
-      public function set form(param1:DisplayObjectContainer) : void
+      public function set form(param1:DisplayObjectBidInitView) : void
       {
          this._form = param1;
       }
       
-      public function ѐ() : InteractiveObject
+      public function main() : InteractiveObject
       {
          var _loc1_:InteractiveObject = this.form["@doswf__stage"].focus;
          return this.Ք(_loc1_);

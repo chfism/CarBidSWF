@@ -1,16 +1,16 @@
 package fl.managers
 {
-   import flash.display.DisplayObjectContainer;
+   import flash.display.DisplayObjectBidInitView;
    import flash.display.InteractiveObject;
-   import Controls.textboxcontrol;
+   import fl.controls.Button;
    
    public interface IFocusManager
    {
        
       
-      function get Վ() : textboxcontrol;
+      function get Վ() : Button;
       
-      function set Վ(param1:textboxcontrol) : void;
+      function set Վ(param1:Button) : void;
       
       function get Տ() : Boolean;
       
@@ -22,7 +22,7 @@ package fl.managers
       
       function set Ց(param1:Boolean) : void;
       
-      function ѐ() : InteractiveObject;
+      function main() : InteractiveObject;
       
       function setFocus(param1:InteractiveObject) : void;
       
@@ -38,8 +38,8 @@ package fl.managers
       
       function Օ(param1:Boolean = false) : InteractiveObject;
       
-      function get form() : DisplayObjectContainer;
+      function get form() : DisplayObjectBidInitView;
       
-      function set form(param1:DisplayObjectContainer) : void;
+      function set form(param1:DisplayObjectBidInitView) : void;
    }
 }

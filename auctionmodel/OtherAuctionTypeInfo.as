@@ -1,12 +1,12 @@
-package auctionmodel
+package WebParamModelmodel
 {
-   public class OtherAuctionTypeInfo extends BasicTradeInfo
+   public class OtherWebParamModelTypeInfo extends BasicTradeInfo
    {
        
       
       public var content:String;
       
-      public function OtherAuctionTypeInfo(param1:String)
+      public function OtherWebParamModelTypeInfo(param1:String)
       {
          super(param1);
       }

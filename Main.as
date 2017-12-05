@@ -3,27 +3,27 @@ package
    import flash.display.MovieClip;
    import flash.display.Sprite;
    import flash.external.ExternalInterface;
-   import model.TradeServer;
-   import model.Auction;
-   import model.InformationServer;
+   import model.BidStageServerModel;
+   import model.WebParamModel;
+   import model.BidInfoServerModel;
    import model.LogApplication;
-   import model.AuctionInfo;
-   import model.EncodeAndDecode;
+   import model.BidStageUserModel;
+   import model.XxteaEncodeAndDecode;
    import zebra.Game;
-   import view.CheckUUID;
+   import view.BrowserPart;
    
    public class Main extends Sprite
    {
       
-      public static var _disconnected:Boolean = false;
+      public static var isKickOut:Boolean = false;
       
       public static var isReconnectBy31:Boolean = false;
       
-      public static var _version:String = "版本 : 7.7.7.27";
+      public static var clientui_version:String = "版本 : 7.7.7.27";
       
-      public static var timediff:Number = 0;
+      public static var BidStageHeartAction:Number = 0;
       
-      public static var §˜§:Boolean = true;
+      public static var passCheck:Boolean = true;
       
       public static var uid:String = "";
       
@@ -32,7 +32,7 @@ package
       
       public var logapplication:LogApplication;
       
-      public var xxtea:EncodeAndDecode;
+      public var xxtea:XxteaEncodeAndDecode;
       
       public var flashcallingcheck:Boolean = true;
       
@@ -49,92 +49,90 @@ package
          var _loc14_:String = null;
          this.logapplication = new LogApplication();
          //hum xxtea="!@p!a"
-         this.xxtea = new EncodeAndDecode(keystr);
+         this.xxtea = new XxteaEncodeAndDecode(keystr);
          super();
          var _isLocal:String = "!local";
          if(loaderInfo["@doswf__url"].indexOf("file:///") != -1)
          {
             _isLocal = "local";
          }
-         new Game(this["@doswf__stage"]);
+         new Game(stage);
          Game.Hack.keepframe();
          if(Game.Hack.debug)
          {
-            Main._version = "D" + Main._version;
+            Main.clientui_version = "D" + Main.clientui_version;
          }
-         var auction:Auction = new Auction();
+         var webParamMode:WebParamModel = new WebParamModel();
          if(_isLocal != "local")
          {
         	 //uid=54297820
-            _uid = this["@doswf__stage"].loaderInfo.parameters["uid"];
-            auction.uid = _uid;
-            //uname=冯莉萍
-            _uname = this["@doswf__stage"].loaderInfo.parameters["uname"];
-            auction.uname = _uname;
+            _uid = stage.loaderInfo.parameters["uid"];
+            webParamMode.uid = _uid;
+            //uname=冯XX
+            _uname = stage.loaderInfo.parameters["uname"];
+            webParamMode.uname = _uname;
             //clientId=27d8ead720994414bb4931ef3b2bafeb
-            _clientId = this["@doswf__stage"].loaderInfo.parameters["clientId"];
-            auction.clientid = _clientId;
-            //informationserverstr=
-            _informationserverstr = this["@doswf__stage"].loaderInfo.parameters["informationserverstr"];
-            auction.informationserverstr = _informationserverstr;
-            //tradeserverstr=180.153.24.227:8300,180.153.29.213:8300,180.153.15.118:8300,180.153.38.219:8300
-            _tradeserverstr = this["@doswf__stage"].loaderInfo.parameters["tradeserverstr"];
-            auction.tradeserverstr = _tradeserverstr;
-            //webserverstr=paimai2.alltobid.com:80
-            _webserverstr = this["@doswf__stage"].loaderInfo.parameters["webserverstr"];
-            auction.webserverstr = _webserverstr.split(",")[0];
-            //lcserverstr=
-            _lcserverstr = this["@doswf__stage"].loaderInfo.parameters["lcserverstr"];
-            auction.lcserverstr = _lcserverstr;
+            _clientId = stage.loaderInfo.parameters["clientId"];
+            webParamMode.clientid = _clientId;
+            //left_socketIPList=
+            _BidInfoServerModelstr = stage.loaderInfo.parameters["left_socketIPList"];
+            webParamMode.left_socketIPList = _BidInfoServerModelstr;
+            //right_socketIPList=180.153.24.227:8300,180.153.29.213:8300,180.153.15.118:8300,180.153.38.219:8300
+            _BidStageServerModelstr = stage.loaderInfo.parameters["right_socketIPList"];
+            webParamMode.right_socketIPList = _BidStageServerModelstr;
+            //httpIP=paimai2.alltobid.com:80
+            _httpIP = stage.loaderInfo.parameters["httpIP"];
+            webParamMode.httpIP = _httpIP.split(",")[0];
+            //logIP=
+            _logIP = stage.loaderInfo.parameters["logIP"];
+            webParamMode.logIP = _logIP;
             //auctype=0
-            _auctype = this["@doswf__stage"].loaderInfo.parameters["auctype"];
-            auction.auctype = _auctype;
+            _auctype = stage.loaderInfo.parameters["auctype"];
+            webParamMode.auctype = _auctype;
             //pwd=898eda2554b845a5842a7375ae109085
-            _pwd = this["@doswf__stage"].loaderInfo.parameters["pwd"];
-            auction.pwd = _pwd;
+            _pwd = stage.loaderInfo.parameters["pwd"];
+            webParamMode.pwd = _pwd;          
          }
          else
          {
-            auction.clientid = "226f331f58a941ff9b9219b8a294a281";
-            auction.uid = "99851739";
-            auction.tradeserverstr = "114.80.106.55";
-            auction.webserverstr = "114.80.106.55".split(",")[0];
-            auction.auctype = "0";
+        	 webParamMode.clientid = "226f331f58a941ff9b9219b8a294a281";
+        	 webParamMode.uid = "99851739";
+        	 webParamMode.right_socketIPList = "114.80.106.55";
+        	 webParamMode.httpIP = "114.80.106.55".split(",")[0];
+        	 webParamMode.auctype = "0";
          }
-         uid = auction.uid;
-         var auctioninfo:AuctionInfo = new AuctionInfo();
-         auctioninfo.bidnumber = auction.uid;
-         auctioninfo.clientId = auction.clientid;
-         
-         if(!new MovieClip()["@doswf__stage"])
-         {
-            return;
-         }
-         var _tradeserver:TradeServer = new §§pop().TradeServer();
+         uid = webParamMode.uid;
+       
+         var userModel:BidStageUserModel = new BidStageUserModel();
+         userModel.bidnumber = WebParamModel.uid;
+         userModel.clientId = WebParamModel.clientid;
+      // trace("BidStageUserModel初始化");
+
+         var bidStageServerModel:BidStageServerModel = new BidStageServerModel();
          if(_isLocal != "local")
          {
-            _tradeserver.iplist = this.ParseServerList(auction.tradeserverstr);
+        	 bidStageServerModel.iplist = this.parseIpList(webParamMode.right_socketIPList);
          }
-         var _informationserver:InformationServer = new InformationServer();
+         var bidInfoModel:BidInfoServerModel = new BidInfoServerModel();
          if(_isLocal != "local")
          {
-            _informationserver.iplist = this.ParseServerList(auction.informationserverstr);
+        	 bidInfoModel.iplist = this.parseIpList(WebParamModel.left_socketIPList);
             this.flashcallingcheck = ExternalInterface.call("flashCallingCheck");
          }
          if(this.flashcallingcheck)
          {
-            addChild(new CheckUUID());
+            addChild(new BrowserPart());
          }
       }
       
-      private function ParseServerList(param1:String) : Array
+      private function parseIpList(param1:String) : Array
       {
-         var _loc2_:Array = param1.split(",");
+         var arr:Array = param1.split(",");
          var _serverlist:Array = new Array();
          var _loc4_:int = 0;
-         while(_loc4_ < _loc2_.length)
+         while(_loc4_ < arr.length)
          {
-            _loc3_.push(_loc2_[_loc4_].split(":")[0]);
+            _loc3_.push(arr[_loc4_].split(":")[0]);
             _loc4_++;
          }
          return _serverlist;

@@ -1,12 +1,12 @@
-package auctionmodel
+package WebParamModelmodel
 {
    public class TradeInfo extends BasicTradeInfo
    {
        
       
-      public var auctionType:String;
+      public var WebParamModelType:String;
       
-      public var auctionDate:Date;
+      public var WebParamModelDate:Date;
       
       public function TradeInfo(param1:String)
       {

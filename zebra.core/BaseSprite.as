@@ -33,20 +33,20 @@ package zebra.core
 		
 		}
 		
-		protected function addToStageControl():void
+		protected function addToPriceParseControl():void
 		{
 		
 		}
 
 		
-		protected function removeStageControl():void
+		protected function removePriceParseControl():void
 		{
 		
 		}
 		
 		private function _addToStageLogic(e:Event):void
 		{
-			addToStageControl();
+			addToPriceParseControl();
 			if (addStageHandler != null)
 				addStageHandler(this);
 			_IsRender = true;
@@ -54,7 +54,7 @@ package zebra.core
 		
 		private function _removeStageLogic(e:Event):void
 		{			
-			addToStageControl();
+			addToPriceParseControl();
 			_IsRender = false;
 			if (removeStageHandler != null)removeStageHandler(this);
 		}

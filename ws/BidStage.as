@@ -7,7 +7,7 @@ package ws
    {
        
       
-      public var networklightview:TextField;
+      public var Bidinfo:TextField;
       
       public var info:TextField;
       

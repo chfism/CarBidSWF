@@ -1,6 +1,6 @@
-package auctionmodel
+package WebParamModelmodel
 {
-   public class TypeCInfo extends OtherAuctionTypeInfo
+   public class TypeCInfo extends OtherWebParamModelTypeInfo
    {
        
       

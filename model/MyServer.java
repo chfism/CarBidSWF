@@ -1,4 +1,4 @@
-package Utility
+package Util
 {
    public class MyServer
    {
@@ -13,7 +13,7 @@ package Utility
       
       private var serverindex:int = 0;
       
-      private var _needreset:Boolean = false;
+      private var _allowChangeCount:Boolean = false;
       
       private var logapplication:LogApplication;
       
@@ -21,12 +21,12 @@ package Utility
       {
       }
       
-      native public function ˣ() : void;
+      native public function setAllowChangeCount() : void;
       
       native public function resetAllowChangeCount() : void;
       
       native public function get ip() : String;
       
-      native public function switchIP() : void;
+      native public function changeIP() : void;
    }
 }

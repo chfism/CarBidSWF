@@ -1,4 +1,4 @@
-package auctionmodel
+package WebParamModelmodel
 {
    public class TypeGInfo extends TradeInfo implements ITradeInfo
    {

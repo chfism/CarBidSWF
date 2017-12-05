@@ -1,6 +1,6 @@
-package auctionmodel
+package WebParamModelmodel
 {
-   public class TypeBInfo extends NormalAuctionInfo
+   public class TypeBInfo extends NormalBidStageUserModel
    {
        
       

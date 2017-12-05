@@ -1,4 +1,4 @@
-package auctionmodel
+package WebParamModelmodel
 {
    public class TypeDInfo extends BasicTradeInfo implements ITradeInfo
    {

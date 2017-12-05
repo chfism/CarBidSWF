@@ -3,7 +3,7 @@ package fl.core
    import flash.display.Bitmap;
    import flash.display.BitmapData;
    import flash.display.DisplayObject;
-   import flash.display.DisplayObjectContainer;
+   import flash.display.DisplayObjectBidInitView;
    import flash.display.InteractiveObject;
    import flash.display.Sprite;
    import flash.events.Event;
@@ -58,7 +58,7 @@ package fl.core
       
       protected var г:Dictionary;
       
-      protected var д:Boolean = false;
+      protected var handler:Boolean = false;
       
       protected var _enabled:Boolean = true;
       
@@ -88,7 +88,7 @@ package fl.core
       
       protected var с:String = null;
       
-      protected var т:Boolean = false;
+      protected var Reader0to0Handler:Boolean = false;
       
       protected var у:Boolean = false;
       
@@ -425,17 +425,17 @@ package fl.core
       
       public function setFocus() : void
       {
-         if(this["@doswf__stage"])
+         if(stage)
          {
-            this["@doswf__stage"].focus = this;
+            stage.focus = this;
          }
       }
       
-      public function ѐ() : InteractiveObject
+      public function main() : InteractiveObject
       {
-         if(this["@doswf__stage"])
+         if(stage)
          {
-            return this["@doswf__stage"].focus;
+            return stage.focus;
          }
          return null;
       }
@@ -451,16 +451,16 @@ package fl.core
                this.с = IME.conversionMode;
                try
                {
-                  if(!this.т && IME.conversionMode != IMEConversionMode.UNKNOWN)
+                  if(!this.Reader0to0Handler && IME.conversionMode != IMEConversionMode.UNKNOWN)
                   {
                      IME.conversionMode = this.р;
                   }
-                  this.т = false;
+                  this.Reader0to0Handler = false;
                   return;
                }
                catch(e:Error)
                {
-                  т = true;
+                  Reader0to0Handler = true;
                   throw new Error("IME mode not supported: " + р);
                }
             }
@@ -622,12 +622,12 @@ package fl.core
             return;
          }
          this.г[ݬ] = true;
-         if(this["@doswf__stage"] != null)
+         if(stage != null)
          {
             try
             {
-               this["@doswf__stage"].addEventListener(Event.RENDER,this.љ,false,0,true);
-               this["@doswf__stage"].invalidate();
+               stage.addEventListener(Event.RENDER,this.љ,false,0,true);
+               stage.invalidate();
                return;
             }
             catch(se:SecurityError)
@@ -651,8 +651,8 @@ package fl.core
             try
             {
                removeEventListener(Event.ADDED_TO_STAGE,this.љ);
-               this["@doswf__stage"].addEventListener(Event.RENDER,this.љ,false,0,true);
-               this["@doswf__stage"].invalidate();
+               stage.addEventListener(Event.RENDER,this.љ,false,0,true);
+               stage.invalidate();
                return;
             }
             catch(se1:SecurityError)
@@ -673,7 +673,7 @@ package fl.core
          Event.target.removeEventListener(Event.ENTER_FRAME,this.љ);
          try
          {
-            if(this["@doswf__stage"] == null)
+            if(stage == null)
             {
                addEventListener(Event.ADDED_TO_STAGE,this.љ,false,0,true);
                return;
@@ -698,7 +698,7 @@ package fl.core
       {
          var _loc1_:IFocusManager = null;
          var _loc2_:Dictionary = null;
-         if(this["@doswf__stage"] == null)
+         if(stage == null)
          {
             addEventListener(Event.ADDED_TO_STAGE,this.addedHandler,false,0,true);
          }
@@ -773,16 +773,16 @@ package fl.core
          var ݮ:Boolean = true;
          try
          {
-            this["@doswf__stage"].getChildAt(0);
+            stage.getChildAt(0);
          }
          catch(se:SecurityError)
          {
             ݮ = false;
          }
-         var ݯ:DisplayObjectContainer = null;
+         var ݯ:DisplayObjectBidInitView = null;
          if(ݮ)
          {
-            ݯ = this["@doswf__stage"];
+            ݯ = stage;
          }
          else
          {
