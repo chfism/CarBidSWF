@@ -11,7 +11,7 @@ package Controller
    {
        
       
-      private var _servermodel;
+      private var _model;
       
       private var _tagName:String;
       
@@ -19,7 +19,7 @@ package Controller
       
       public var logappliction:LogApplication;
       
-      public var connectHandler:Function;
+      public var successHandler:Function;
       
       public var closeHandler:Function;
       
@@ -27,12 +27,12 @@ package Controller
       
       public var securityErrorHandler:Function;
       
-      public function SocketControl(title:String, model:*)
+      public function SocketControl(tagName:String, model:*)
       {
          this.logappliction = new LogApplication();
          super();
-         this._tagName = title;
-         this._servermodel = model;
+         this._tagName = tagName;
+         this._model = model;
          Game.Content.removeObject("socketControl");
          Game.Content.addObject("socketControl",this);
          this.createSocket();
@@ -42,13 +42,13 @@ package Controller
       private function createSocket() : void
       {
          this.socket = new GameSocketThread();
-         this.socket.connect(this._servermodel.ip,this._servermodel.port);
-         var _ip:String = this._servermodel.ip;
-         var _port:String = this._servermodel.port;
+         this.socket.connect(this._model.ip,this._model.port);
+         var _ip:String = this._model.ip;
+         var _port:String = this._model.port;
          var _currentdate:Date = new Date();
          var _currentdatestr:String = String(_currentdate.getHours()) + ":" + String(_currentdate.getMinutes()) + ":" + String(_currentdate.getSeconds()) + "." + String(_currentdate.getMilliseconds());
          LogWinPart(Game.Content.getView(LogWinPart)).info(_currentdatestr + "," + "建立socket连接" + "," + "socket" + "," + "IP:" + _ip + "port:" + _port);
-         this.socket.connectHandler = this._connectHandler;
+         this.socket.successHandler = this._connectHandler;
          this.socket.closeHandler = this._closeHandler;
          this.socket.ioErrorHandler = this._ioErrorHandler;
          this.socket.securityErrorHandler = this._securityErrorHandler;
@@ -56,7 +56,7 @@ package Controller
       
       public function reconnect(param1:ServerModel , param2:int = 1000) : void
       {
-         var _servermodel:ServerModel  = param1;
+         var _model:ServerModel  = param1;
          var timer:int = param2;
          setTimeout(function():*
          {
@@ -64,10 +64,10 @@ package Controller
             var _port:String = null;
             if(!Main.isKickOut)
             {
-               _servermodel.changeIP();
-               socket.connect(_servermodel.ip,_servermodel.port);
-               _ip = _servermodel.ip;
-               _port = String(_servermodel.port);
+               _model.changeIP();
+               socket.connect(_model.ip,_model.port);
+               _ip = _model.ip;
+               _port = String(_model.port);
                logappliction.WriteLogWithWarnWithIpAndPort("投标板块","断线重连",_ip,_port);
             }
          },timer);
@@ -91,6 +91,7 @@ package Controller
       
       private function _closeHandler(param1:GameSocketThread) : void
       {
+    	  //trace((this._tagName + "->断开联机"));
          if(this.closeHandler != null)
          {
             this.closeHandler();
@@ -99,9 +100,10 @@ package Controller
       
       private function _connectHandler(param1:GameSocketThread) : void
       {
-         if(this.connectHandler != null)
+    	  //trace((this._tagName + "->联机成功"));
+         if(this.successHandler != null)
          {
-            this.connectHandler();
+            this.successHandler();
          }
       }
       

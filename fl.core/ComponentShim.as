@@ -2,11 +2,11 @@ package fl.core
 {
    import flash.display.MovieClip;
    
-   public dynamic class Ɂ extends MovieClip
+   public dynamic class ComponentShim extends MovieClip
    {
        
       
-      public function Ɂ()
+      public function ComponentShim()
       {
          super();
       }

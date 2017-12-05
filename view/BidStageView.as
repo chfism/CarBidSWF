@@ -55,7 +55,7 @@ package view
          Game.Content.addUpdateView(this);
          userModel = BidStageUserModel(Game.Content.getModel(BidStageUserModel));
          this.socketControl = new SocketControl("右边操作出价",this.serverModel);
-         this.socketControl.connectHandler = function():void
+         this.socketControl.successHandler = function():void
          {
         	 //TODO: reveive data, Reader2to3handler
             socketControl.socket.receive("1-1",Reader1to1Handler); //"成功连接"

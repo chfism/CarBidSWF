@@ -1,6 +1,6 @@
 package view
 {
-	//Hum LeftBidInitView负责联络BidInfoServerModel
+
    import flash.display.Sprite;
    import flash.events.MouseEvent;
    import flash.net.URLRequest;
@@ -28,7 +28,7 @@ package view
    {
        
       
-      public var Bidinfo:Bidinfo;
+      public var bidinfo:BidInfoPart;
       
       public var socketControl:SocketControl;
       
@@ -38,20 +38,20 @@ package view
       
       public function BidInfoView()
       {
-         this.Bidinfo = new Bidinfo();
+         this.bidinfo = new bidinfo();
          this.logappliction = new LogApplication();
          this.xxtea = new XxteaEncodeAndDecode(Main.keystr);
          super();
          Game.Content.addUpdateView(this);
-         this.Bidinfo.adBtn.enabled = false;
-         this.Bidinfo.adBtn.visible = false;
-         var _requeststr:BidInfoUserModel = BidInfoUserModel(Game.Content.getModel(BidInfoUserModel));
-         var _BidInfoServerModel:BidInfoServerModel = BidInfoServerModel(Game.Content.getModel(BidInfoServerModel));
-         var _BidInitView:BidInitView = BidInitView(Game.Content.getView(BidInitView));
-         var _gamesocketthread:GameSocketThread = BidStageView(Game.Content.getView(BidStageView)).socketControl.socket;
-         _gamesocketthread.receive("3-1",this.Reader3to1Handler); //结束后的显示信息
-         this.Bidinfo.setLightState(2);
-         addChild(this.Bidinfo);
+         this.bidinfo.adBtn.enabled = false;
+         this.bidinfo.adBtn.visible = false;
+         var bidInfoUserModel:BidInfoUserModel = BidInfoUserModel(Game.Content.getModel(BidInfoUserModel));
+         var infoModel:BidInfoServerModel = BidInfoServerModel(Game.Content.getModel(BidInfoServerModel));
+         var bidInitView:BidInitView = BidInitView(Game.Content.getView(BidInitView));
+         var _socket:GameSocketThread = BidStageView(Game.Content.getView(BidStageView)).socketControl.socket;
+         _socket.receive("3-1",this.Reader3to1Handler); //结束后的显示信息
+         this.bidinfo.setLightState(2);
+         addChild(this.bidinfo);
          Game.TimeUpdate.addTaskAction(new BidInfoWebDataAction(),1000);
       }
       
@@ -61,8 +61,24 @@ package view
          navigateToURL(_loc2_,"_blank");
       }
       
+      /* 反编译出来的版本没有这个函数，Reader3to1Handler里多了很多逻辑
+      private function Reader1to1Handler(data:SocketThreadParam):void
+      {
+          trace("========左边=======1-1==================");
+          var bytesReader:FlashBytesReader = data.bytesReader.clone();
+          var receiveData1to1:String = bytesReader.readString();
+          var sourceStr1to1:String = this.xxtea.XxteaDecode(receiveData1to1);
+          var serverJSON:String = sourceStr1to1;
+          this.bidinfo.info.htmlText = BidInfoParse.info(serverJSON);
+          var heart:BidInfoHeartAction = new BidInfoHeartAction();
+          heart.execute();
+          Game.Hack.keepframe();
+      }
+      */
+      
       private function Reader3to1Handler(socketthreadparam:SocketThreadParam) : void
       {
+    	  // trace("接收到3-1");
          var _loc10_:InfoTagEvent = null;
          var _htmltext:String = null;
          var _loc12_:String = null;
@@ -77,13 +93,13 @@ package view
             BidStagePart(Game.Content.getView(BidStagePart)).bidstage.ver.text = Main.clientui_version + " 帧频：" + String(stage.frameRate);
          }
          Main.isReconnectBy31 = false;
-         BidInfoWebDataAction._time = getTimer();
-         this.Bidinfo.setLightState(2);
-         var _flashbytereader:FlashBytesReader = socketthreadparam.bytesReader.clone();
-         var _bytereaderstr:String = _flashbytereader.readString();
-         var _loc6_:String = this.xxtea.§̝§(_bytereaderstr);
+         BidInfoWebDataAction.Reader3to1Timer = getTimer();
+         this.bidinfo.setLightState(2);
+         var bytesReader:FlashBytesReader = socketthreadparam.bytesReader.clone();
+         var receiveData3to1:String = bytesReader.readString();
+         var _loc6_:String = this.xxtea.§̝§(receiveData3to1);
          var _loc7_:String = _loc6_;
-         var _basictradeinfo:BasicTradeInfo = BidinfoParse.FillBidStageUserModelData(_loc7_);
+         var _basictradeinfo:BasicTradeInfo = BidinfoParse.GetTradeInfo(_loc7_);
          if(_basictradeinfo != null)
          {
             _InfoTagEvent = new InfoTagEvent();
@@ -119,8 +135,8 @@ package view
             	   _htmltext = _htmltext + ("当前处理位置:" + _loc13_.tradeSn);
                }
             }
-            this.Bidinfo.info.htmlText = _htmltext;
-            BidStagePart(Game.Content.getView(BidStagePart)).bidstage.Bidinfo.htmlText = _loc12_;
+            this.bidinfo.info.htmlText = _htmltext;
+            BidStagePart(Game.Content.getView(BidStagePart)).bidstage.bidinfo.htmlText = _loc12_;
             if(_basictradeinfo.type == "A" || _basictradeinfo.type == "B")
             {
                _loc15_ = NormalBidStageUserModel(_basictradeinfo);
@@ -131,19 +147,19 @@ package view
             }
             if(_basictradeinfo.type == "D" || _basictradeinfo.type == "G")
             {
-               this.Bidinfo.adBtn.visible = true;
+               this.bidinfo.adBtn.visible = true;
             }
             else
             {
-               this.Bidinfo.adBtn.visible = false;
+               this.bidinfo.adBtn.visible = false;
             }
          }
-         var _UserQueue:UserQueue = UserQueue(Game.Content.getModel(UserQueue));
-         if(_UserQueue != null)
+         var userQueue:UserQueue = UserQueue(Game.Content.getModel(UserQueue));
+         if(userQueue != null)
          {
             if(PriceWaitPart(Game.Content.getView(PriceWaitPart)))
             {
-               PriceWaitPart(Game.Content.getView(PriceWaitPart)).setLoaderPos(_UserQueue.getPos());
+               PriceWaitPart(Game.Content.getView(PriceWaitPart)).setLoaderPos(userQueue.getPos());
             }
          }
       }

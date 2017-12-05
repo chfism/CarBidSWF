@@ -90,7 +90,7 @@ package Util
          return new Date(param1.fullYear,param1.month,param1.date,param2.hours,param2.minutes,param2.seconds);
       }
       
-      public static function FillBidStageUserModelData(data:String) : BasicTradeInfo
+      public static function GetTradeInfo(data:String) : BasicTradeInfo
       {
          var _loc6_:TypeAInfo = null;
          var _loc7_:String = null;
