@@ -27,7 +27,7 @@ package view
    import zebra.system.collections.ByteArrayCollection;
    import zebra.system.collections.FlashBytesReader;
    import Utility.MD5;
-   import Controller.PriceParseControl;
+   import control.PriceParseControl;
    import zebra.loaders.IAssetLoader;
    import r1.deval.parser.D;
    
@@ -253,7 +253,7 @@ package view
          var _loc22_:String = null;
          var warn:WarnInfoPart = null;
       	 //trace("2-1校验码获取");
-         var _WebParamModel:WebParamModel = WebParamModel(Game.Content.getModel(WebParamModel));
+         var _Auction:WebParamModel = WebParamModel(Game.Content.getModel(WebParamModel));
          var _currentdate:Date = new Date();
          var _currentdatestr:String = String(_currentdate.getHours()) + ":" + String(_currentdate.getMinutes()) + ":" + String(_currentdate.getSeconds()) + "." + String(_currentdate.getMilliseconds());
          var bytesReader:FlashBytesReader = param1.bytesReader.clone();
@@ -300,7 +300,7 @@ package view
             this.logappliction.WriteLogWithWarn("投标板块","接收校验码2-1","requestid:" + _requestid + ",server time:" + _servertime);
             this.logappliction.WriteLogWithWarnWithURL("投标板块","接收校验码2-1",this.imageurl);
             _txtfield = new TextField();
-            this.imageurl = this.imageurl + "&b=" + _WebParamModel.pwd;
+            this.imageurl = this.imageurl + "&b=" + _Auction.pwd;
             _txtfield.htmlText = " <img src=\'" + this.imageurl + "\' id=\'image\' />";
             addChild(_txtfield);
             this.c = _txtfield.getImageReference("image");

@@ -14,7 +14,7 @@ package view
    import zebra.Game;
    import ws.SelfTopPriceWindow;
    import zebra.content.GameAsset;
-   import Controller.PriceParseControl;
+   import control.PriceParseControl;
    import zebra.loaders.IAssetLoader;
    
    public class SelfTopPriceWindowPart extends SelfTopPriceWindow
@@ -42,7 +42,7 @@ package view
       
       private function addTostageHandler(param1:Event) : void
       {
-         var _WebParamModel:WebParamModel = null;
+         var _Auction:WebParamModel = null;
          var uri:String = null;
          var loader:URLLoader = null;
          var request:URLRequest = null;
@@ -69,8 +69,8 @@ package view
          else
          {
         	 //webserver=paimai2.alltobid.com:80
-            _WebParamModel = WebParamModel(Game.Content.getModel(WebParamModel));
-            uri = "http://" + _WebParamModel.httpIP + "/webwcf/BidCmd.svc/WebCmd?p=" + Math.random();
+            _Auction = WebParamModel(Game.Content.getModel(WebParamModel));
+            uri = "http://" + _Auction.httpIP + "/webwcf/BidCmd.svc/WebCmd?p=" + Math.random();
             loader = new URLLoader();
             request = new URLRequest(uri);
             request.method = URLRequestMethod.POST;
@@ -169,8 +169,8 @@ package view
       private function sendAndGetPriceInfo() : void
       {
          var loader:URLLoader = null;
-         var _WebParamModel:WebParamModel = WebParamModel(Game.Content.getModel(WebParamModel));
-         var uri:String = "http://" + _WebParamModel.httpIP + "/webwcf/BidCmd.svc/WebCmd?p=" + Math.random();
+         var _Auction:WebParamModel = WebParamModel(Game.Content.getModel(WebParamModel));
+         var uri:String = "http://" + _Auction.httpIP + "/webwcf/BidCmd.svc/WebCmd?p=" + Math.random();
          this.logappliction.WriteLogWithWarnWithURL("投标板块","请求最新出价情况",uri);
          loader = new URLLoader();
          var request:URLRequest = new URLRequest(uri);

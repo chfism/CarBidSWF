@@ -1,12 +1,12 @@
-package WebParamModelmodel
+package auctionmodel
 {
-   public class BasicTradeInfo
+   public class AuctionModel
    {
        
       
       public var type:String;
       
-      public function BasicTradeInfo(param1:String)
+      public function AuctionModel(param1:String)
       {
          super();
          this.type = param1;

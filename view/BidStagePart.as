@@ -8,7 +8,7 @@ package view
    import zebra.Game;
    import ws.BidStage;
    import Event.InfoTagEvent;
-   import WebParamModelmodel.BidStageUserModel;
+   import auctionmodel.BidStageUserModel;
    
    public class BidStagePart extends Sprite
    {

@@ -1,6 +1,6 @@
-package WebParamModelmodel
+package auctionmodel
 {
-   public class TypeDInfo extends BasicTradeInfo implements ITradeInfo
+   public class AuctionResultModel extends AuctionModel implements IAuction
    {
        
       
@@ -10,7 +10,7 @@ package WebParamModelmodel
       
       private var queuelength:int;
       
-      public function TypeDInfo()
+      public function AuctionResultModel()
       {
          super("D");
       }

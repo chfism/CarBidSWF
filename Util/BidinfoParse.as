@@ -8,17 +8,17 @@ package Util
    import view.BidStageView;
    import view.BidInitView;
    import view.BidInfoView;
-   import WebParamModelmodel.BasicTradeInfo;
-   import WebParamModelmodel.TradeInfo;
-   import WebParamModelmodel.BidStageUserModel;
-   import WebParamModelmodel.OtherWebParamModelTypeInfo;
-   import WebParamModelmodel.TypeFInfo;
-   import WebParamModelmodel.TypeEInfo;
-   import WebParamModelmodel.TypeHInfo;
-   import WebParamModelmodel.TypeGInfo;
-   import WebParamModelmodel.TypeAInfo;
-   import WebParamModelmodel.TypeDInfo;
-   import WebParamModelmodel.TypeCInfo;
+   import auctionmodel.AuctionModel;
+   import auctionmodel.AuctionBasicModel;
+   import auctionmodel.BidStageUserModel;
+   import auctionmodel.AuctionErrorModel;
+   import auctionmodel.AuctionNotStartModel2;
+   import auctionmodel.AuctionEndModel;
+   import auctionmodel.AuctionPauseModel;
+   import auctionmodel.AuctionWaitResultModel;
+   import auctionmodel.Auction1stStageModel;
+   import auctionmodel.AuctionResultModel;
+   import auctionmodel.AuctionNotStartModel;
    
    public class BidinfoParse
    {
@@ -90,34 +90,34 @@ package Util
          return new Date(param1.fullYear,param1.month,param1.date,param2.hours,param2.minutes,param2.seconds);
       }
       
-      public static function GetTradeInfo(data:String) : BasicTradeInfo
+      public static function GetTradeInfo(data:String) : AuctionModel
       {
-         var _loc6_:TypeAInfo = null;
+         var _loc6_:Auction1stStageModel = null;
          var _loc7_:String = null;
          var _loc8_:BidStageUserModel = null;
-         var _loc9_:TypeCInfo = null;
-         var _loc10_:TypeDInfo = null;
-         var _loc11_:TypeEInfo = null;
-         var _loc12_:TypeFInfo = null;
-         var _loc13_:TypeGInfo = null;
-         var _loc14_:TypeHInfo = null;
+         var _loc9_:AuctionNotStartModel = null;
+         var _loc10_:AuctionResultModel = null;
+         var _loc11_:AuctionEndModel = null;
+         var _loc12_:AuctionNotStartModel2 = null;
+         var _loc13_:AuctionWaitResultModel = null;
+         var _loc14_:AuctionPauseModel = null;
          var _loc2_:Array = data.split(",");
          var _loc3_:Date = ConverToLastMonthLongDate(_loc2_[0]);
          var _type:String = _loc2_[1];
-         var _WebParamModelType:String = _loc2_[2];
+         var _AuctionType:String = _loc2_[2];
       	//首次出价阶段
          if(_type == "A")
          {
-            _loc6_ = new TypeAInfo();
-            _loc6_.WebParamModelType = _WebParamModelType;
-            _loc6_.WebParamModelDate = ConverToLastMonthDate(_loc2_[3]);
+            _loc6_ = new Auction1stStageModel();
+            _loc6_.AuctionType = _AuctionType;
+            _loc6_.AuctionDate = ConverToLastMonthDate(_loc2_[3]);
             _loc6_.quota = parseInt(_loc2_[4]);
             _loc6_.warningPrice = parseInt(_loc2_[5]);
             _loc6_.priceLowerLimit = parseInt(_loc2_[6]);
-            _loc6_.startTime = ConvertToLongDate(_loc6_.WebParamModelDate,ConverToHourMinute(_loc2_[7]));
-            _loc6_.updateTime = ConvertToLongDate(_loc6_.WebParamModelDate,ConverToHourMinute(_loc2_[8]));
-            _loc6_.endTime = ConvertToLongDate(_loc6_.WebParamModelDate,ConverToHourMinute(_loc2_[9]));
-            _loc6_.systemTime = ConvertToLongDate(_loc6_.WebParamModelDate,ConvertToShortDate(_loc2_[10]));
+            _loc6_.startTime = ConvertToLongDate(_loc6_.AuctionDate,ConverToHourMinute(_loc2_[7]));
+            _loc6_.updateTime = ConvertToLongDate(_loc6_.AuctionDate,ConverToHourMinute(_loc2_[8]));
+            _loc6_.endTime = ConvertToLongDate(_loc6_.AuctionDate,ConverToHourMinute(_loc2_[9]));
+            _loc6_.systemTime = ConvertToLongDate(_loc6_.AuctionDate,ConvertToShortDate(_loc2_[10]));
             _loc6_.numberOfBidUsers = parseInt(_loc2_[11]);
             _loc6_.basePrice = parseInt(_loc2_[12]);
             _loc7_ = _loc2_[13];
@@ -132,15 +132,15 @@ package Util
          if(_type == "B")
          {
             _loc8_ = new BidStageUserModel();
-            _loc8_.WebParamModelType = _WebParamModelType;
-            _loc8_.WebParamModelDate = ConverToLastMonthDate(_loc2_[3]);
+            _loc8_.AuctionType = _AuctionType;
+            _loc8_.AuctionDate = ConverToLastMonthDate(_loc2_[3]);
             _loc8_.quota = parseInt(_loc2_[4]);
             _loc8_.numberOfBidUsers = parseInt(_loc2_[5]);
             _loc8_.priceLowerLimit = parseInt(_loc2_[6]);
-            _loc8_.startTime = ConvertToLongDate(_loc8_.WebParamModelDate,ConverToHourMinute(_loc2_[7]));
-            _loc8_.updateTime = ConvertToLongDate(_loc8_.WebParamModelDate,ConverToHourMinute(_loc2_[8]));
-            _loc8_.endTime = ConvertToLongDate(_loc8_.WebParamModelDate,ConverToHourMinute(_loc2_[9]));
-            _loc8_.systemTime = ConvertToLongDate(_loc8_.WebParamModelDate,ConvertToShortDate(_loc2_[10]));
+            _loc8_.startTime = ConvertToLongDate(_loc8_.AuctionDate,ConverToHourMinute(_loc2_[7]));
+            _loc8_.updateTime = ConvertToLongDate(_loc8_.AuctionDate,ConverToHourMinute(_loc2_[8]));
+            _loc8_.endTime = ConvertToLongDate(_loc8_.AuctionDate,ConverToHourMinute(_loc2_[9]));
+            _loc8_.systemTime = ConvertToLongDate(_loc8_.AuctionDate,ConvertToShortDate(_loc2_[10]));
             _loc8_.basePrice = parseInt(_loc2_[11]);
             _loc7_ = _loc2_[12];
             if(_loc7_.length > 0)
@@ -156,14 +156,14 @@ package Util
          //"没有正在举行的拍卖会，请注意拍卖公告！"
          if(_type == "C")
          {
-            _loc9_ = new TypeCInfo();
+            _loc9_ = new AuctionNotStartModel();
             _loc9_.content = _loc2_[2];
             return _loc9_;
          }
        //"拍卖会已结束！"
          if(_type == "D")
          {
-            _loc10_ = new TypeDInfo();
+            _loc10_ = new AuctionResultModel();
             _loc10_.content = _loc2_[2];
             _loc10_.tradeSn = parseInt(_loc2_[3]);
             _loc10_.queueLength = parseInt(_loc2_[4]);
@@ -172,27 +172,27 @@ package Util
          ///"拍卖会已终止！"
          if(_type == "E")
          {
-            _loc11_ = new TypeEInfo();
+            _loc11_ = new AuctionEndModel();
             _loc11_.content = _loc2_[2];
             return _loc11_;
          }
        //"没有正在举行的拍卖会，请注意拍卖公告！"
          if(_type == "F")
          {
-            _loc12_ = new TypeFInfo();
-            _loc12_.WebParamModelType = _WebParamModelType;
-            _loc12_.WebParamModelDate = ConverToLastMonthDate(_loc2_[3]);
-            _loc12_.startTime = ConvertToLongDate(_loc12_.WebParamModelDate,ConverToHourMinute(_loc2_[4]));
-            _loc12_.endTime = ConvertToLongDate(_loc12_.WebParamModelDate,ConverToHourMinute(_loc2_[5]));
-            _loc12_.systemTime = ConvertToLongDate(_loc12_.WebParamModelDate,ConvertToShortDate(_loc2_[6]));
+            _loc12_ = new AuctionNotStartModel2();
+            _loc12_.AuctionType = _AuctionType;
+            _loc12_.AuctionDate = ConverToLastMonthDate(_loc2_[3]);
+            _loc12_.startTime = ConvertToLongDate(_loc12_.AuctionDate,ConverToHourMinute(_loc2_[4]));
+            _loc12_.endTime = ConvertToLongDate(_loc12_.AuctionDate,ConverToHourMinute(_loc2_[5]));
+            _loc12_.systemTime = ConvertToLongDate(_loc12_.AuctionDate,ConvertToShortDate(_loc2_[6]));
             return _loc12_;
          }
        //"拍卖会已结束！"
          if(_type == "G")
          {
-            _loc13_ = new TypeGInfo();
-            _loc13_.WebParamModelType = _WebParamModelType;
-            _loc13_.WebParamModelDate = ConverToLastMonthDate(_loc2_[3]);
+            _loc13_ = new AuctionWaitResultModel();
+            _loc13_.AuctionType = _AuctionType;
+            _loc13_.AuctionDate = ConverToLastMonthDate(_loc2_[3]);
             _loc13_.content = _loc2_[4];
             _loc13_.tradeSn = parseInt(_loc2_[5]);
             _loc13_.queueLength = parseInt(_loc2_[6]);
@@ -201,22 +201,22 @@ package Util
        //"拍卖会已暂停！"
          if(_type == "H")
          {
-            _loc14_ = new TypeHInfo();
+            _loc14_ = new AuctionPauseModel();
             _loc14_.content = _loc2_[2];
             return _loc14_;
          }
          return null;
       }
       
-      private static function GetWebParamModelTitle(param1:TradeInfo) : String
+      private static function GetAuctionTitle(param1:AuctionBasicModel) : String
       {
          var type:String = null;
-         var time:String = chinesedateformatter.format(param1.WebParamModelDate);
-         if(param1.WebParamModelType == "0")
+         var time:String = chinesedateformatter.format(param1.AuctionDate);
+         if(param1.AuctionType == "0")
          {
             type = "个人";
          }
-         else if(param1.WebParamModelType == "1")
+         else if(param1.AuctionType == "1")
          {
             type = "单位";
          }
@@ -227,28 +227,28 @@ package Util
          return StringUtil.substitute(title,time,type);
       }
       
-      public static function info(param1:BasicTradeInfo) : String
+      public static function info(param1:AuctionModel) : String
       {
          var message:* = null;
-         var _loc3_:TypeAInfo = null;
+         var _loc3_:Auction1stStageModel = null;
          var _loc4_:String = null;
          var BidStageUserModel:BidStageUserModel = null;
-         var _loc6_:OtherWebParamModelTypeInfo = null;
-         var _loc7_:TypeDInfo = null;
-         var _loc8_:TypeFInfo = null;
-         var _loc9_:TypeGInfo = null;
+         var _loc6_:AuctionErrorModel = null;
+         var _loc7_:AuctionResultModel = null;
+         var _loc8_:AuctionNotStartModel2 = null;
+         var _loc9_:AuctionWaitResultModel = null;
       //首次出价阶段
          if(param1.type == "A")
          {
-            _loc3_ = TypeAInfo(param1);
-            _loc4_ = GetWebParamModelTitle(_loc3_);
+            _loc3_ = Auction1stStageModel(param1);
+            _loc4_ = GetAuctionTitle(_loc3_);
             message = _loc4_ + "\n";
             message = message + ("投放额度数:" + _loc3_.quota + "\n");
-            if(_loc3_.WebParamModelType == "1")
+            if(_loc3_.AuctionType == "1")
             {
                message = message + ("起拍价:" + _loc3_.priceLowerLimit + "\n");
             }
-            if(_loc3_.WebParamModelType == "1")
+            if(_loc3_.AuctionType == "1")
             {
                if(_loc3_.warningPrice == 0)
                {
@@ -275,11 +275,11 @@ package Util
          else if(param1.type == "B")
          {
             BidStageUserModel = BidStageUserModel(param1);
-            _loc4_ = GetWebParamModelTitle(BidStageUserModel);
+            _loc4_ = GetAuctionTitle(BidStageUserModel);
             message = "<font color=\'#FF0000\'>";
             message = message + (_loc4_ + "\n");
             message = message + ("投放额度数:" + BidStageUserModel.quota + "\n");
-            if(BidStageUserModel.WebParamModelType == "1")
+            if(BidStageUserModel.AuctionType == "1")
             {
                message = message + ("起拍价:" + BidStageUserModel.priceLowerLimit + "\n");
             }
@@ -296,24 +296,24 @@ package Util
          }
          else if(param1.type == "C" || param1.type == "E" || param1.type == "H")
          {
-            _loc6_ = OtherWebParamModelTypeInfo(param1);
+            _loc6_ = AuctionErrorModel(param1);
             message = _loc6_.content;
          }
          else if(param1.type == "D")
          {
-            _loc7_ = TypeDInfo(param1);
+            _loc7_ = AuctionResultModel(param1);
             message = _loc7_.content;
          }
          else if(param1.type == "F")
          {
-            _loc8_ = TypeFInfo(param1);
-            _loc4_ = GetWebParamModelTitle(_loc8_);
+            _loc8_ = AuctionNotStartModel2(param1);
+            _loc4_ = GetAuctionTitle(_loc8_);
             message = StringUtil.substitute("{0}尚未开始\n起止时间为：\n{1}\n{2}\n\n系统目前时间：{3}",_loc4_,chineselongdateformatter.format(_loc8_.startTime),chineselongdateformatter.format(_loc8_.endTime),shorttimeformatter.format(_loc8_.systemTime));
          }
          else if(param1.type == "G")
          {
-            _loc9_ = TypeGInfo(param1);
-            _loc4_ = GetWebParamModelTitle(_loc9_);
+            _loc9_ = AuctionWaitResultModel(param1);
+            _loc4_ = GetAuctionTitle(_loc9_);
             message = _loc4_ + "已经结束，" + _loc9_.content;
          }
          else

@@ -16,13 +16,13 @@ package view
    import zebra.system.net.SocketThreadParam;
    import zebra.system.collections.FlashBytesReader;
    import Utility.BidinfoParse;
-   import Controller.SocketControl;
+   import control.SocketControl;
    import task.BidInfoWebDataAction;
    import Event.InfoTagEvent;
-   import WebParamModelmodel.BasicTradeInfo;
-   import WebParamModelmodel.ITradeInfo;
-   import WebParamModelmodel.NormalBidStageUserModel;
-   import WebParamModelmodel.TypeDInfo;
+   import auctionmodel.AuctionModel;
+   import auctionmodel.IAuction;
+   import auctionmodel.AuctionDetailModel;
+   import auctionmodel.AuctionResultModel;
    
    public class BidInfoView extends Sprite
    {
@@ -82,9 +82,9 @@ package view
          var _loc10_:InfoTagEvent = null;
          var _htmltext:String = null;
          var _loc12_:String = null;
-         var _loc13_:ITradeInfo = null;
+         var _loc13_:IAuction = null;
          var _loc14_:String = null;
-         var _loc15_:NormalBidStageUserModel = null;
+         var _loc15_:AuctionDetailModel = null;
          var _loc16_:Date = null;
          var _loc17_:String = null;
          var _loc18_:String = null;
@@ -99,7 +99,7 @@ package view
          var receiveData3to1:String = bytesReader.readString();
          var _loc6_:String = this.xxtea.§̝§(receiveData3to1);
          var _loc7_:String = _loc6_;
-         var _basictradeinfo:BasicTradeInfo = BidinfoParse.GetTradeInfo(_loc7_);
+         var _basictradeinfo:AuctionModel = BidinfoParse.GetTradeInfo(_loc7_);
          if(_basictradeinfo != null)
          {
             _InfoTagEvent = new InfoTagEvent();
@@ -108,7 +108,7 @@ package view
             
             Game.DirectEvent.send(InfoTagEvent.name,_InfoTagEvent);
             _htmltext = BidinfoParse.info(_basictradeinfo);
-            if(_basictradeinfo.type == "D" && TypeDInfo(_basictradeinfo).content.indexOf("拍卖成交的买受人") != -1)
+            if(_basictradeinfo.type == "D" && AuctionResultModel(_basictradeinfo).content.indexOf("拍卖成交的买受人") != -1)
             {
                _loc14_ = "拍卖成交的买受人";
                if(_htmltext.indexOf("请拍卖成交的买受人") != -1)
@@ -126,7 +126,7 @@ package view
             {
                _loc12_ = "";
             }
-            _loc13_ = _basictradeinfo as ITradeInfo;
+            _loc13_ = _basictradeinfo as IAuction;
             if(_loc13_ != null)
             {
                BidinfoParse.userUpdatePos = _loc13_.tradeSn;
@@ -139,7 +139,7 @@ package view
             BidStagePart(Game.Content.getView(BidStagePart)).bidstage.bidinfo.htmlText = _loc12_;
             if(_basictradeinfo.type == "A" || _basictradeinfo.type == "B")
             {
-               _loc15_ = NormalBidStageUserModel(_basictradeinfo);
+               _loc15_ = AuctionDetailModel(_basictradeinfo);
                _loc16_ = new Date();
                _loc17_ = String(_loc16_.getMinutes()) + "." + String(_loc16_.getSeconds());
                _loc18_ = String(_loc15_.systemTime.getMinutes()) + "." + String(_loc15_.systemTime.getSeconds());

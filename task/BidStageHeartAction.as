@@ -26,6 +26,7 @@ package task
         	userModel.sendTimespan = new Date();
             BidStageView(Game.Content.getView(BidStageView)).socketControl.socket.receive("0-0",this.Reader0to0Handler);
             BidStageView(Game.Content.getView(BidStageView)).socketControl.socket.send("0-0",userModel.bytes0_0);
+            //需要发送的格式见SocketPackUtil.setPackHeader
          }
       }
       

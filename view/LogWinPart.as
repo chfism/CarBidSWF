@@ -53,8 +53,8 @@ package view
          var loader:URLLoader = null;
       	//trace("将日志上传到服务器");
          var e:MouseEvent = param1;
-         var _WebParamModel:WebParamModel = WebParamModel(Game.Content.getModel(WebParamModel));
-         var uri:String = "http://" + _WebParamModel.logIP + "/lc/LogCollect.svc/WebCmd?p=" + Math.random();
+         var _Auction:WebParamModel = WebParamModel(Game.Content.getModel(WebParamModel));
+         var uri:String = "http://" + _Auction.logIP + "/lc/LogCollect.svc/WebCmd?p=" + Math.random();
          var uniqueid:String = GUID.create().toLowerCase();
          loader = new URLLoader();
          var temp:String = this.logText;
@@ -84,8 +84,8 @@ package view
          var loader:URLLoader = null;
       //trace("将日志上传到服务器");
          var e:* = param1;
-         var _WebParamModel:WebParamModel = WebParamModel(Game.Content.getModel(WebParamModel));
-         var uri:String = "http://" + _WebParamModel.logIP + "/lc/LogCollect.svc/WebCmd?p=" + Math.random();
+         var _Auction:WebParamModel = WebParamModel(Game.Content.getModel(WebParamModel));
+         var uri:String = "http://" + _Auction.logIP + "/lc/LogCollect.svc/WebCmd?p=" + Math.random();
          var uniqueid:String = GUID.create().toLowerCase();
          loader = new URLLoader();
          var temp:String = this.logText;

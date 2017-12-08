@@ -1,6 +1,6 @@
-package WebParamModelmodel
+package auctionmodel
 {
-   public class TypeFInfo extends TradeInfo
+   public class AuctionNotStartModel2 extends AuctionBasicModel
    {
        
       
@@ -10,7 +10,7 @@ package WebParamModelmodel
       
       public var systemTime:Date;
       
-      public function TypeFInfo()
+      public function AuctionNotStartModel2()
       {
          super("F");
       }

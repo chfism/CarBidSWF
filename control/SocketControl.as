@@ -1,4 +1,4 @@
-package Controller
+package control
 {
    import flash.utils.setTimeout;
    import model.ServerModel ;

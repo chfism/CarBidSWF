@@ -17,8 +17,8 @@ package view
    import zebra.system.net.SocketThreadParam;
    import zebra.system.collections.FlashBytesReader;
    import Utility.BidinfoParse;
-   import Controller.PriceParseControl;
-   import Controller.SocketControl;
+   import control.PriceParseControl;
+   import control.SocketControl;
    import task.BidStageHeartAction;
    
    public class BidStageView extends Sprite

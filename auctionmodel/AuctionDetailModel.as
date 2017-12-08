@@ -1,6 +1,6 @@
-package WebParamModelmodel
+package auctionmodel
 {
-   public class NormalBidStageUserModel extends TradeInfo implements ITradeInfo
+   public class AuctionDetailModel extends AuctionBasicModel implements IAuction
    {
        
       
@@ -26,7 +26,7 @@ package WebParamModelmodel
       
       private var queuelength:int;
       
-      public function NormalBidStageUserModel(param1:String)
+      public function AuctionDetailModel(param1:String)
       {
          super(param1);
       }

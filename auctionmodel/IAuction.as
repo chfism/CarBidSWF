@@ -1,6 +1,6 @@
-package WebParamModelmodel
+package auctionmodel
 {
-   public interface ITradeInfo
+   public interface IAuction
    {
        
       

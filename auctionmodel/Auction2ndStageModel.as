@@ -1,6 +1,6 @@
-package WebParamModelmodel
+package auctionmodel
 {
-   public class TypeBInfo extends NormalBidStageUserModel
+   public class Auction2ndStageModel extends AuctionDetailModel
    {
        
       
@@ -8,7 +8,7 @@ package WebParamModelmodel
       
       public var highestPrice:int;
       
-      public function TypeBInfo()
+      public function Auction2ndStageModel()
       {
          super("B");
       }

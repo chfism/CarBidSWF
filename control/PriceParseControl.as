@@ -1,5 +1,5 @@
-package Controller
-{
+package control
+{  //没什么用，都是右侧的出价信息
    import model.LogApplication;
    import zebra.Game;
    import view.BidInitView;
@@ -51,7 +51,7 @@ package Controller
             _type = _responseobject.response.data.results[0].type;
             _txt = "您第" + _bidcount + "次出价\n";
             _txt = _txt + ("出价金额:" + _responseobject.response.data.results[0].bidamount + "\n");
-            _txt = _txt + ("出价时间:" + ϱ(_responseobject.response.data.results[0].dealtime) + "\n");
+            _txt = _txt + ("出价时间:" + Remove000(_responseobject.response.data.results[0].dealtime) + "\n");
             if(_type == "1")
             {
             	_txt = _txt + "出价方式:网络出价";
@@ -272,7 +272,7 @@ package Controller
          return _loc2_;
       }
       
-      private static function ϱ(param1:String) : String
+      private static function Remove000(param1:String) : String
       {
          var _loc2_:String = param1;
          if(param1.indexOf("000") != -1)

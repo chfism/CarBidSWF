@@ -1,6 +1,6 @@
-package WebParamModelmodel
+package auctionmodel
 {
-   public class TypeGInfo extends TradeInfo implements ITradeInfo
+   public class AuctionWaitResultModel extends AuctionBasicModel implements IAuction
    {
        
       
@@ -10,7 +10,7 @@ package WebParamModelmodel
       
       private var queuelength:int;
       
-      public function TypeGInfo()
+      public function AuctionWaitResultModel()
       {
          super("G");
       }

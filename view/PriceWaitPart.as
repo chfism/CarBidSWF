@@ -12,7 +12,7 @@ package view
    import model.UserQueue;
    import zebra.Game;
    import ws.UnderProcess;
-   import Controller.PriceParseControl;
+   import control.PriceParseControl;
    
    public class PriceWaitPart extends UnderProcess
    {

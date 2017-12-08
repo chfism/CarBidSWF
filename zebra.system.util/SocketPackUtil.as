@@ -32,8 +32,8 @@ package zebra.system.util
 				//整包长度= 包体长度+主包头+子包头;
 				//4字节 表示包长度
 				appendHeaderPack.toUInt32(data.length+4+1+1);
-				appendHeaderPack.toUInt8(headerArr[0])
-				appendHeaderPack.toUInt8(headerArr[1])
+				appendHeaderPack.toUInt8(headerArr[0]);
+				appendHeaderPack.toUInt8(headerArr[1]);
 				appendHeaderPack.writeBytes(data);
 			return appendHeaderPack;		
 		}
